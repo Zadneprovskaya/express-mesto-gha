@@ -23,7 +23,7 @@ const getUser = (req, res) => {
     })
     .then(user => res.status(RIGHT_CODE).send({ data: user }))
     .catch(err => {
-      if (err.name === 'ValidationError')  {
+      if (err.name === 'ValidationError' || err.name === 'CastError')  {
         res.status(ERROR_CODE).send({ message: 'Переданы некорректные данные пользователя' });
       }
       else {
