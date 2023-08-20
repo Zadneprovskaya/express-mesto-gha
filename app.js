@@ -4,6 +4,7 @@ const URL = 'mongodb://127.0.0.1:27017/mestodb';
 const { PORT = 3000 } = process.env;
 const { userRouter } = require('./routes/users');
 const { cardRouter } = require('./routes/cards');
+const { ERROR_DEFAULT_CODE } = require('./config/config');
 
 const app = express();
 
@@ -22,6 +23,9 @@ app.use((req, res, next) => {
 
 app.use(userRouter);
 app.use(cardRouter);
+app.use('*', (req, res) => {
+  res.status(ERROR_DEFAULT_CODE).send({ message: 'Такой страницы не существует' });
+});
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)

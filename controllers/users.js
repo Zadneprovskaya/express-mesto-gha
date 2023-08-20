@@ -22,7 +22,14 @@ const getUser = (req, res) => {
       res.status(NOT_FOUND_CODE).send({ message: `Пользователь по указанному _id (${ userId }) не найден` });
     })
     .then(user => res.status(RIGHT_CODE).send({ data: user }))
-    .catch(err => res.status(ERROR_DEFAULT_CODE).send({ message: 'Произошла ошибка' }));
+    .catch(err => {
+      if (err.name === 'ValidationError')  {
+        res.status(ERROR_CODE).send({ message: 'Переданы некорректные данные пользователя' });
+      }
+      else {
+        res.status(ERROR_DEFAULT_CODE).send({ message: 'Произошла ошибка' });
+      }
+    });
 };
 
 const createUser = (req, res) => {

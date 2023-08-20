@@ -43,7 +43,14 @@ const deleteCard = (req, res) => {
           })
           .catch(err => res.status(ERROR_DEFAULT_CODE).send({ message: 'Произошла ошибка' }));
       })
-    .catch(err => res.status(ERROR_DEFAULT_CODE).send({ message: 'Произошла ошибка' }));
+    .catch(err => {
+      if (err.name === 'ValidationError' || err.name === 'CastError')  {
+        res.status(ERROR_CODE).send({ message: 'Переданы некорректные данные id карточки' });
+      }
+      else {
+        res.status(ERROR_DEFAULT_CODE).send({ message: 'Произошла ошибка' });
+      }
+    });
 };
 
 const updateLikes = (req, res, newData) => {
@@ -60,7 +67,7 @@ const updateLikes = (req, res, newData) => {
       res.status(RIGHT_CODE).send({ data: card });
     })
     .catch(err => {
-      if (err.name === 'ValidationError')  {
+      if (err.name === 'ValidationError' || err.name === 'CastError')  {
         res.status(ERROR_CODE).send({ message: 'Переданы некорректные данные для постановки/снятии лайка' });
       }
       else {
