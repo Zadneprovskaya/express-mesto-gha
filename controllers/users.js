@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const {
   RIGHT_CODE,
+  CREATED_CODE,
   ERROR_CODE,
   NOT_FOUND_CODE,
   ERROR_DEFAULT_CODE
@@ -37,7 +38,7 @@ const createUser = (req, res) => {
   User.create({ name, about, avatar })
   .then(user => {
     const { _id } = user;
-    res.status(RIGHT_CODE).send({ data: { name, about, avatar, _id }})
+    res.status(CREATED_CODE).send({ data: { name, about, avatar, _id }})
   })
   .catch(err => {
     if (err.name === 'ValidationError')  {
