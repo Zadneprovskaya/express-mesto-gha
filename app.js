@@ -14,10 +14,11 @@ mongoose.connect(URL,{
 });
 
 app.use(helmet());
+app.use(express.json());
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '64df2fda6719c217c8b02254'
+    _id: '64e31b20daf44b2a35d82209'
   };
   next();
 });
