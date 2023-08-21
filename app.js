@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const URL = 'mongodb://127.0.0.1:27017/mestodb';
 const { PORT = 3000 } = process.env;
 const { userRouter } = require('./routes/users');
@@ -12,7 +13,7 @@ mongoose.connect(URL,{
   useNewUrlParser: true,
 });
 
-app.use(express.json());
+app.use(helmet());
 
 app.use((req, res, next) => {
   req.user = {
