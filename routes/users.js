@@ -1,27 +1,28 @@
 const express = require('express');
+const { validateGetUser, validateUpdateProfileInfo, validateUpdateProfileAvatar } = require('../middlewares/validation');
 
 const {
-  createUser,
   getUsers,
   getUser,
   updateProfileInfo,
   updateProfileAvatar,
+  getCurrentUser,
 } = require('../controllers/users');
 const userRouter = express.Router();
-
-// создать пользователя
-userRouter.post('/users', createUser);
 
 // вернуть всех пользователей
 userRouter.get('/users', getUsers);
 
 // вернуть пользователя по _id
-userRouter.get('/users/:userId', getUser);
+userRouter.get('/users/:userId', validateGetUser, getUser);
+
+// возвращает информацию о текущем пользователе
+userRouter.get('/users/me', getCurrentUser);
 
 // обновить профиль
-userRouter.patch('/users/me', updateProfileInfo);
+userRouter.patch('/users/me', validateUpdateProfileInfo, updateProfileInfo);
 
 // обновить аватар
-userRouter.patch('/users/me/avatar', updateProfileAvatar);
+userRouter.patch('/users/me/avatar', validateUpdateProfileAvatar, updateProfileAvatar);
 
 module.exports = {userRouter};
