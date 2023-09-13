@@ -28,11 +28,10 @@ app.use(auth);
 
 app.use(userRouter);
 app.use(cardRouter);
-app.use('*', (req, res) => {
+app.use('*', (req, res, next) => {
   next(new NotFoundError('Такой страницы не существует'));
 });
 
-// Обрабатываем ошибки
 app.use(errors());
 
 app.use((err, req, res, next) => {

@@ -103,7 +103,7 @@ const updateProfileInfo = (req, res, next) => {
   return updateProfile(req, res, next, { name, about });
 };
 
-const updateProfileAvatar = (req, res) => {
+const updateProfileAvatar = (req, res, next) => {
   const { avatar } = req.body;
   return updateProfile(req, res, next, { avatar });
 };
