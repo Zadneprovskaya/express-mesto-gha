@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+
 const URL = 'mongodb://127.0.0.1:27017/mestodb';
 const { PORT = 3000 } = process.env;
 const { userRouter } = require('./routes/users');
@@ -14,7 +15,7 @@ const { validateLogin, validateCreateUser } = require('./middlewares/validation'
 
 const app = express();
 
-mongoose.connect(URL,{
+mongoose.connect(URL, {
   useNewUrlParser: true,
 });
 
@@ -48,5 +49,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`)
+  // eslint-disable-next-line no-console
+  console.log(`App listening on port ${PORT}`);
 });
