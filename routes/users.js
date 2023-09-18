@@ -26,4 +26,4 @@ userRouter.patch('/users/me', validateUpdateProfileInfo, updateProfileInfo);
 // обновить аватар
 userRouter.patch('/users/me/avatar', validateUpdateProfileAvatar, updateProfileAvatar);
 
-module.exports = {userRouter};
+module.exports = { userRouter };

@@ -14,7 +14,6 @@ const DEFAULT_AVATAR = 'https://pictures.s3.yandex.net/resources/jacques-coustea
 const REGULAR_URL = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
 const REGULAR_ID = /^[0-9a-fA-F]{24}$/;
 
-
 module.exports = {
   RIGHT_CODE,
   CREATED_CODE,
@@ -30,5 +29,5 @@ module.exports = {
   DEFAULT_ABOUT,
   DEFAULT_AVATAR,
   REGULAR_URL,
-  REGULAR_ID
+  REGULAR_ID,
 };

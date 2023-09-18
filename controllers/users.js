@@ -9,9 +9,8 @@ const {
   RIGHT_CODE,
   CREATED_CODE,
   SALT_COUNT,
-  KEY
+  KEY,
 } = require('../config/config');
-
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -24,9 +23,9 @@ const getUser = (req, res, next) => {
 
   User.findById(userId)
     .orFail(() => {
-      throw new NotFoundError(`Пользователь по указанному _id (${ userId }) не найден`);
+      throw new NotFoundError(`Пользователь по указанному _id (${userId}) не найден`);
     })
-    .then(user => res.status(RIGHT_CODE).send({ data: user }))
+    .then((user) => res.status(RIGHT_CODE).send({ data: user }))
     .catch((e) => {
       if (e instanceof mongoose.Error.CastError) {
         return next(new RequestError('Переданы некорректные данные пользователя'));
@@ -48,7 +47,9 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
 
   bcrypt.hash(password, SALT_COUNT)
     .then((hash) => User.create({
@@ -90,9 +91,9 @@ const updateProfile = (req, res, next, newData) => {
       upsert: false,
     },
   ).orFail(() => {
-    throw new NotFoundError(`Пользователь с указанным _id (${ req.user._id }) не найден`);
+    throw new NotFoundError(`Пользователь с указанным _id (${req.user._id}) не найден`);
   })
-    .then(user => {
+    .then((user) => {
       res.status(RIGHT_CODE).send({ data: user });
     })
     .catch(next);
@@ -128,5 +129,3 @@ module.exports = {
   updateProfileAvatar,
   login,
 };
-
-

@@ -9,47 +9,48 @@ const {
   DEFAULT_AVATAR,
 } = require('../config/config');
 
-
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    default: DEFAULT_NAME,
-    minlength: [2, 'Имя не может быть короче 2 символов'],
-    maxlength: [30, 'Имя не может быть длиннее 30 символов']
-  },
-  about: {
-    type: String,
-    default: DEFAULT_ABOUT,
-    minlength: [2, 'Информация о себе не может быть короче 2 символов'],
-    maxlength: [30, 'Информация о себе не может быть длиннее 30 символов']
-  },
-  avatar: {
-    type: String,
-    default: DEFAULT_AVATAR,
-    validate: {
-      validator: (url) => validator.isURL(url),
-      message: 'Некорректный URL',
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      default: DEFAULT_NAME,
+      minlength: [2, 'Имя не может быть короче 2 символов'],
+      maxlength: [30, 'Имя не может быть длиннее 30 символов'],
     },
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: (email) => validator.isEmail(email),
-      message: 'Неверно указана почта',
+    about: {
+      type: String,
+      default: DEFAULT_ABOUT,
+      minlength: [2, 'Информация о себе не может быть короче 2 символов'],
+      maxlength: [30, 'Информация о себе не может быть длиннее 30 символов'],
     },
-  },
-  password: {
-    type: String,
-    required: true,
-    select: false,
-  }
+    avatar: {
+      type: String,
+      default: DEFAULT_AVATAR,
+      validate: {
+        validator: (url) => validator.isURL(url),
+        message: 'Некорректный URL',
+      },
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: (email) => validator.isEmail(email),
+        message: 'Неверно указана почта',
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false,
+    },
   },
   { versionKey: false },
 );
 
+// eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
   // попытаемся найти пользователя по почте
   return this.findOne({ email }).select('+password')

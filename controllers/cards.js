@@ -33,7 +33,7 @@ const deleteCard = (req, res, next) => {
   const ownerId = req.user._id;
   Card.findById(cardId)
     .orFail(() => {
-      throw new NotFoundError(`Карточка с указанным _id (${ cardId }) не найдена`);
+      throw new NotFoundError(`Карточка с указанным _id (${cardId}) не найдена`);
     })
     .populate(['owner', 'likes'])
     .then((card) => {
